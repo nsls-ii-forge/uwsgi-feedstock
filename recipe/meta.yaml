@@ -1,0 +1,50 @@
+{% set name = "uwsgi" %}
+{% set version = "2.0.18" %}
+{% set sha256 = "4972ac538800fb2d421027f49b4a1869b66048839507ccf0aa2fda792d99f583" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/u/uWSGI/{{ name }}-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  number: 0
+  skip: True  # [win or py<36]
+  detect_binary_files_with_prefix: true
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  host:
+    - python
+    - pip
+    - icu
+    - jansson
+    - libxml2
+    - openssl
+    - pcre
+    - yaml
+    - zlib
+  run:
+    - python
+    - jansson
+
+test:
+  source_files:
+    - tests
+  commands:
+    - uwsgi --version
+    - uwsgi --plugin-list
+
+about:
+  home: https://github.com/unbit/uwsgi
+  license: GPL-2.0
+  license_file: LICENSE
+  summary: |
+    The uWSGI project aims at developing a full stack for building hosting
+    services. Application servers (for various programming languages and
+    protocols), proxies, process managers and monitors are all implemented.
