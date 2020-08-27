@@ -1,6 +1,6 @@
 {% set name = "uWSGI" %}
-{% set version = "2.0.18" %}
-{% set sha256 = "4972ac538800fb2d421027f49b4a1869b66048839507ccf0aa2fda792d99f583" %}
+{% set version = "2.0.19.1" %}
+{% set sha256 = "faa85e053c0b1be4d5585b0858d3a511d2cd10201802e8676060fd0a109e5869" %}
 
 package:
   name: {{ name|lower }}
@@ -12,7 +12,7 @@ source:
 
 build:
   number: 0
-  skip: True  # [win or py<36]
+  skip: true  # [not linux or py<36]
   detect_binary_files_with_prefix: true
 
 requirements:
